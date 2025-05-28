@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Partition Tool</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+            display: inline-block;
+            animation: fadeIn 1s;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        input, select, button {
+            margin: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            width: 90%;
+            text-align: center;
+        }
+
+        button {
+            background: #ff4081;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: #ff79b0;
+            transform: scale(1.05);
+        }
+
+        #output {
+            margin-top: 20px;
+            text-align: left;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Data Partition Tool</h2>
+        <label for="size">Enter Size:</label>
+        <input type="number" id="size" placeholder="Enter size" required>
+        <select id="unit">
+            <option value="MB">MB</option>
+            <option value="GB">GB</option>
+        </select>
+        <button onclick="processSize()">Calculate</button>
+        <button onclick="goToPageFaultCalculator()">Go to Page Fault Calculator</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function processSize() {
+            let size = parseFloat(document.getElementById('size').value);
+            let unit = document.getElementById('unit').value;
+            let outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = "";
+            let referenceArray = [];
+
+            if (unit === 'GB') {
+                size *= 1024;
+            }
+
+            if (size <= 0) {
+                outputDiv.innerHTML = '<p style="color:red;">Please enter a valid size.</p>';
+                return;
+            }
+
+            if (size > 100) {
+                let numParts = Math.ceil(size / 100);
+                let partSize = Math.floor(size / numParts);
+                let lastPartSize = size - (partSize * (numParts - 1));
+
+                outputDiv.innerHTML += `<p>Size is greater than 100MB, splitting into ${numParts} parts:</p>`;
+                for (let i = 1; i <= numParts; i++) {
+                    let currentSize = (i === numParts) ? lastPartSize : partSize;
+                    let randomRef = Math.floor(Math.random() * 5) + 1;
+                    referenceArray.push(randomRef);
+                    outputDiv.innerHTML += `<p>Part ${i}: ${currentSize}MB (Ref: DATA_PART_${randomRef})</p>`;
+                }
+
+                localStorage.setItem("referenceString", JSON.stringify(referenceArray));
+            } else {
+                outputDiv.innerHTML = `<p>Size is within limit: ${size}MB</p>`;
+            }
+        }
+
+        function goToPageFaultCalculator() {
+            window.location.href = "page_fault_calculator.html";
+        }
+    </script>
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let storedReferenceString = localStorage.getItem("referenceString");
+        if (storedReferenceString) {
+            document.getElementById("referenceString").value = JSON.parse(storedReferenceString).join(", ");
+        }
+    });
+</script>
