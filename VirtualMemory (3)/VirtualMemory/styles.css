@@ -1,0 +1,78 @@
+/* Basic body setup */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevents scrollbars from appearing */
+}
+
+/* Container for the floating balls */
+.floating-balls-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Styling for the balls */
+.ball {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 255, 0.6); /* Semi-transparent blue */
+    border-radius: 50%;
+    animation: float 5s infinite ease-in-out;
+}
+
+/* Random animation for each ball */
+.ball1 {
+    animation-duration: 6s;
+    animation-delay: 0s;
+    background-color: rgba(255, 0, 0, 0.6); /* Red */
+}
+
+.ball2 {
+    animation-duration: 7s;
+    animation-delay: 1s;
+    background-color: rgba(0, 255, 0, 0.6); /* Green */
+}
+
+.ball3 {
+    animation-duration: 8s;
+    animation-delay: 2s;
+    background-color: rgba(0, 0, 255, 0.6); /* Blue */
+}
+
+.ball4 {
+    animation-duration: 10s;
+    animation-delay: 3s;
+    background-color: rgba(255, 255, 0, 0.6); /* Yellow */
+}
+
+.ball5 {
+    animation-duration: 9s;
+    animation-delay: 4s;
+    background-color: rgba(255, 165, 0, 0.6); /* Orange */
+}
+
+/* Keyframes for the floating movement */
+@keyframes float {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    25% {
+        transform: translateX(200px) translateY(50px);
+    }
+    50% {
+        transform: translateX(0) translateY(100px);
+    }
+    75% {
+        transform: translateX(-200px) translateY(50px);
+    }
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Virtual Memory System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #1e3c72, #2a5298, #ff7b00, #e66a00);
+            background-size: 400% 400%;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            flex-direction: column;
+            transition: background 1s ease-in-out;
+            animation: fadeIn 2s ease-in, gradientBG 10s infinite alternate;
+            position: relative;
+        }
+        h1 {
+            font-size: 4rem;
+            margin-top: 20px;
+            position: absolute;
+            top: 10px;
+            font-weight: 900;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+            animation: slideDown 1.5s ease-in-out;
+        }
+        .start-circle {
+            width: 150px;
+            height: 150px;
+            background-color: #ff7b00;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            animation: pulse 1.5s infinite, fadeIn 2s ease-in;
+        }
+        .start-circle:hover {
+            background-color: #e66a00;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        @keyframes breakEffect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(5deg); }
+            75% { transform: scale(0.8) rotate(-5deg); }
+            100% { transform: scale(0) rotate(0deg); }
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let circle = document.getElementById("start-circle");
+
+            circle.addEventListener("click", function () {
+                circle.style.animation = "breakEffect 0.5s ease-in-out forwards";
+                setTimeout(() => {
+                    location.href = "serviceselect.html";  // <-- Updated here
+                }, 500);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Virtual Memory System</h1>
+    <div class="start-circle" id="start-circle">Start</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Process</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #2a5298, #1e3c72);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+    }
+    .options-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .option {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      width: 220px;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .option:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    .option i {
+      font-size: 1.5rem;
+    }
+    .footer {
+      margin-top: 30px;
+    }
+    .submit-button {
+      background: #ff7b00;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .submit-button:hover {
+      background: #e66a00;
+    }
+  </style>
+</head>
+<body>
+  <h1>Select the process you want to run</h1>
+  <form id="processForm">
+    <div class="options-container">
+      <label class="option"><input type="checkbox" name="process" value="word"> <i class="fas fa-file-word"></i> Run a Word file</label>
+      <label class="option"><input type="checkbox" name="process" value="chrome"> <i class="fab fa-chrome"></i> Run Chrome</label>
+      <label class="option"><input type="checkbox" name="process" value="powerpoint"> <i class="fas fa-file-powerpoint"></i> Run PowerPoint Presentation</label>
+      <label class="option"><input type="checkbox" name="process" value="youtube"> <i class="fab fa-youtube"></i> Run YouTube</label>
+      <label class="option"><input type="checkbox" name="process" value="excel"> <i class="fas fa-file-excel"></i> Run Excel</label>
+      <label class="option"><input type="checkbox" name="process" value="notepad"> <i class="fas fa-sticky-note"></i> Run Notepad</label>
+      <label class="option"><input type="checkbox" name="process" value="calculator"> <i class="fas fa-calculator"></i> Run Calculator</label>
+    </div>
+    <div class="footer">
+      <button type="submit" class="submit-button">Proceed</button>
+    </div>
+  </form>
+  <script>
+    function validateSelection() {
+      const checkboxes = document.querySelectorAll('input[name="process"]:checked');
+      if (checkboxes.length > 4) {
+        alert("You can select a maximum of 4 processes.");
+        return false;
+      }
+      return true;
+    }
+
+    document.getElementById("processForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      if (!validateSelection()) return;
+
+      const selected = Array.from(document.querySelectorAll('input[name="process"]:checked')).map(cb => cb.value);
+      localStorage.setItem("selectedProcesses", JSON.stringify(selected));
+      window.location.href = "process_pages.html";
+    });
+  </script>
+</body>
+</html>
